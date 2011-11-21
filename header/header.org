@@ -1,0 +1,10 @@
+
+[[file:index.org][Main]] | Add here more links or any other stuff
+
+
+#+BEGIN_HTML
+
+<p>Write here whatever HTML code you need to include in every
+page. For instance, Javascript stuff to count visits.</p>
+
+#+END_HTML 
