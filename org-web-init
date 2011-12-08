@@ -2,15 +2,25 @@
 
 import os, sys
 from distutils.dir_util import copy_tree
-from shutil import copymode
+import shutil
+import errno
 
+stuff_to_copy = [ 'css', 'header', 'README.rst', 'build', 'index.org', 'orgweb.conf', 'publish_config.el' ]
 
 ORG_WEB_HOME = os.environ.get('ORG_WEB_HOME') if os.environ.get('ORG_WEB_HOME') is not None else os.path.join( os.getenv('HOME'), 'local', 'org-web' )
 
-copy_to_here = os.getcwd()
+dst = os.getcwd()
 
 if not 'index.org' in os.listdir( ORG_WEB_HOME ):
    sys.exit( '%s does not seem to be org-web home' )
 
-copy_tree( ORG_WEB_HOME, copy_to_here )
-copymode( os.path.join( ORG_WEB_HOME, 'css' ), os.path.join( copy_to_here, 'css' ) )
+for stuff in stuff_to_copy:
+   src = os.path.join( ORG_WEB_HOME, stuff )
+   if os.path.isdir( src ):
+      copy_tree( src, os.path.join( dst, stuff ) )
+   else:
+      shutil.copy( src, dst )
+
+
+#copy_tree( ORG_WEB_HOME, copy_to_here )
+shutil.copymode( os.path.join( ORG_WEB_HOME, 'css' ), os.path.join( dst, 'css' ) )
