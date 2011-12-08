@@ -1,0 +1,48 @@
+#! /usr/bin/env python 
+
+import os
+import sys
+import subprocess
+from shutil import rmtree 
+import json
+
+json_conf = file( 'orgweb.conf', 'r' ).read()
+
+conf =  json.loads( json_conf )
+
+def html():
+    if not os.path.exists( conf.get( 'OUTPUT_DIR' ) ):
+        os.mkdir( conf.get( 'OUTPUT_DIR' ) )
+    command = [ conf.get( 'EMACS' ) ] + conf.get( 'EMACS_OPTS' )
+    print command
+    subprocess.Popen( command, 
+                      stdout=subprocess.PIPE).wait()
+
+def upload():
+    if os.path.exists( conf.get( 'OUTPUT_DIR' ) ):
+        print( "uploading contents of %s"% conf.get( 'OUTPUT_DIR' ) )
+        os.chdir( conf.get ( 'OUTPUT_DIR' ) )
+        command = [ conf.get( 'SCP' ), "-r", ".", conf.get( 'DEST_HOST' ) ]
+        print command
+        subprocess.Popen( command, 
+                          stdout=subprocess.PIPE).wait()
+        os.chdir( '..' )
+    else:
+        sys.exit( "no dir '%s', nothing to do"%( conf.get( 'OUTPUT_DIR' ) ) )
+
+def clean_output():
+    if os.path.exists( conf.get( 'OUTPUT_DIR' ) ):
+        print( "removing %s"%( conf.get( 'OUTPUT_DIR' ) ) )
+        rmtree( conf.get( 'OUTPUT_DIR' ) )
+    else:
+        sys.exit( "no dir '%s', nothing to do"%( conf.get( 'OUTPUT_DIR' ) ) )
+
+valids = [ 'html','upload','clean_output' ]
+func = sys.argv[1:][0]
+
+if func in valids:
+    mod = sys.modules['__main__']
+    method = getattr( mod, func )
+    method()
+else:
+    print( "no method '%s' available, try one of: %s"%( func, ", ".join(valids) ) )
