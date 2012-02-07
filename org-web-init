@@ -5,7 +5,7 @@ from distutils.dir_util import copy_tree
 import shutil
 import errno
 
-stuff_to_copy = [ 'css', 'header', 'README.rst', 'build', 'index.org', 'orgweb.conf', 'publish_config.el' ]
+stuff_to_copy = [ 'css', 'header', 'README.rst', 'orgweb', 'index.org', 'orgweb.conf', 'publish_config.el' ]
 
 ORG_WEB_HOME = os.environ.get('ORG_WEB_HOME') if os.environ.get('ORG_WEB_HOME') is not None else os.path.join( os.getenv('HOME'), 'local', 'org-web' )
 
@@ -21,6 +21,8 @@ for stuff in stuff_to_copy:
    else:
       shutil.copy( src, dst )
 
-
-#copy_tree( ORG_WEB_HOME, copy_to_here )
-shutil.copymode( os.path.join( ORG_WEB_HOME, 'css' ), os.path.join( dst, 'css' ) )
+os.chmod( os.path.join( dst, 'css' ), 0755 )
+os.chmod( os.path.join( dst, 'header' ), 0755 )
+os.chmod( os.path.join( dst, 'index.org' ), 0644 )
+os.chmod( os.path.join( dst, 'header/header.org' ), 0644 )
+os.chmod( os.path.join( dst, 'css/style.css' ), 0644 )

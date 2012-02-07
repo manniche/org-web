@@ -14,7 +14,6 @@ def html():
     if not os.path.exists( conf.get( 'OUTPUT_DIR' ) ):
         os.mkdir( conf.get( 'OUTPUT_DIR' ) )
     command = [ conf.get( 'EMACS' ) ] + conf.get( 'EMACS_OPTS' )
-    print command
     subprocess.Popen( command, 
                       stdout=subprocess.PIPE).wait()
 
@@ -23,7 +22,6 @@ def upload():
         print( "uploading contents of %s"% conf.get( 'OUTPUT_DIR' ) )
         os.chdir( conf.get ( 'OUTPUT_DIR' ) )
         command = [ conf.get( 'SCP' ), "-r", ".", conf.get( 'DEST_HOST' ) ]
-        print command
         subprocess.Popen( command, 
                           stdout=subprocess.PIPE).wait()
         os.chdir( '..' )
