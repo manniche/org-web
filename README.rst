@@ -8,7 +8,9 @@ Quick getting started guide
 #. go to the folder where you would like to keep your site source
 #. issue the command ``org-web-init``
 #. edit the ``DEST_HOST`` variable in ``orgweb.conf``
-#. run ``./orgweb upload``
+#. run ``./orgweb <command>``
 
-This will export your org file ``index.org`` to html and additionally
-upload the generated files to the ``$DEST_HOST``
+Where ``<command>`` is one of ``html``, ``upload`` or
+``clean_output``. ``html`` generates html from all org-files in the
+project. ``upload`` uploads the html and accompanying files to the
+``DEST_HOST`` and ``clean_output``... cleans the ``output`` folder.
