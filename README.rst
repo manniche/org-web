@@ -7,8 +7,8 @@ Quick getting started guide
  setting the environment variable ``ORG_WEB_HOME``
 #. go to the folder where you would like to keep your site source
 #. issue the command ``org-web-init``
-#. edit the ``DEST_HOST`` variable in ``Makefile``
-#. run ``make``
+#. edit the ``DEST_HOST`` variable in ``orgweb.conf``
+#. run ``./orgweb upload``
 
 This will export your org file ``index.org`` to html and additionally
 upload the generated files to the ``$DEST_HOST``
