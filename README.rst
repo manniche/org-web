@@ -1,3 +1,7 @@
+Get a org-publish project set up, quickly.
+All the boilerplate stuff is managed by the little script, and as long 
+as you are ok with the defaults, you are all set to go publishing!
+
 Quick getting started guide
 ===========================
 
